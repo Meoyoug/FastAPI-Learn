@@ -1,6 +1,6 @@
-from typing import Annotated, Union
-
+from typing import Annotated
 from fastapi import FastAPI
+from schemas import User
 
 app = FastAPI()
 
@@ -36,3 +36,9 @@ def search_item(item_id: int, q: str | None = None):  # type annotation
 @app.get("/products/{name}")
 def get_product(name: Annotated[str, "제품의 이름 입력"]):
     return {"product": name}
+
+
+@app.get("/users")
+def get_user():
+    user = User(id='1', name='John Doe', email='test@example.com', password='password')
+    return {"user_id": user.id, "user_name": user.name, "user_email": user.email}
