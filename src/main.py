@@ -1,3 +1,5 @@
+from typing import Annotated, Union
+
 from fastapi import FastAPI
 
 app = FastAPI()
@@ -28,3 +30,9 @@ def search_item(item_id: int, q: str | None = None):  # type annotation
     if q:
         return {"item_id": item_id, "q": q}
     return fake_items_db[item_id]
+
+
+# Annotated
+@app.get("/products/{name}")
+def get_product(name: Annotated[str, "제품의 이름 입력"]):
+    return {"product": name}
