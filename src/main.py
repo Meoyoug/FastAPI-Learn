@@ -17,6 +17,14 @@ def greeting(name):
 
 
 # Query Parameter
-@app.get("/items/")
+@app.get("/items")
 def read_item(skip: int = 0, limit: int = 10):  # type annotation
     return fake_items_db[skip:skip + limit]
+
+
+# Query Parameter
+@app.get("/items/{item_id}")
+def search_item(item_id: int, q: str | None = None):  # type annotation
+    if q:
+        return {"item_id": item_id, "q": q}
+    return fake_items_db[item_id]
